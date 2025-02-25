@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishDetector</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    /* Embedded CSS */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #004d99, #007bff);
+      color: #fff;
+      padding: 10px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    header nav ul li {
+      margin: 0 10px;
+    }
+
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .get-started-btn {
+      background: #28a745;
+      color: #fff;
+      padding: 8px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    #hero {
+      height: 100vh;
+      background: linear-gradient(to bottom, #004d99, #001f3f);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #hero h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    #hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      max-width: 600px;
+    }
+
+    .form-control {
+      width: 100%;
+      max-width: 500px;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    .faq {
+      padding: 50px 20px;
+      background: #f4f4f9;
+    }
+
+    .faq h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .faq-list ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .faq-list li {
+      margin-bottom: 15px;
+    }
+
+    .faq-list li a {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    .faq-list li p {
+      margin-top: 5px;
+      font-size: 16px;
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #001f3f;
+      color: #fff;
+    }
+
+    footer a {
+      color: #28a745;
+      text-decoration: none;
+    }
+
+    /* Error message styling */
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">PhishDetector</div>
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#faq">About</a></li>
+          <li><a href="https://phishingbox.com/phishing-iq-test" target="_blank">Quiz</a></li>
+        </ul>
+      </nav>
+      <a href="guide.pdf" class="get-started-btn" download>Download Guide</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <h1>Real-Time Phishing Detector</h1>
+    <p>
+      Protect your online presence with our cutting-edge phishing detection tool. Enter a URL below to check its authenticity.
+    </p>
+    <form action="/result" method="POST">
+      <input type="url" class="form-control" name="url" placeholder="Enter URL (http or https)" required>
+      <button type="submit">Scan URL</button>
+    </form>
+    
+    <p id="error-message" class="error-message" style="display: none;"></p>
+    <p id="result-message" class="success-message" style="display: none;"></p>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <ul>
+          <li>
+            <a onclick="toggleAnswer('faq1')">What is Phishing?</a>
+            <p id="faq1">Phishing is a cybercrime where attackers deceive victims into revealing sensitive information.</p>
+          </li>
+          <li>
+            <a onclick="toggleAnswer('faq2')">How to Prevent Phishing?</a>
+            <p id="faq2">Always verify links, avoid sharing sensitive info, and use strong passwords.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 PhishDetector | <a href="#hero">Back to Top</a>
+  </footer>
+
+  <script>
+    // JavaScript for FAQ Toggle
+    function toggleAnswer(id) {
+      var element = document.getElementById(id);
+      if (element.style.display === "none" || element.style.display === "") {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+
+    // Example function to show messages dynamically (optional)
+    function showMessage(isError, message) {
+      if (isError) {
+        document.getElementById("error-message").innerText = message;
+        document.getElementById("error-message").style.display = "block";
+        document.getElementById("result-message").style.display = "none";
+      } else {
+        document.getElementById("result-message").innerText = message;
+        document.getElementById("result-message").style.display = "block";
+        document.getElementById("error-message").style.display = "none";
+      }
+    }
+  </script>
+</body>
+
+</html>
